@@ -5,6 +5,7 @@
 #include "calcul.h"
 #include "matrice.h"
 
+//A traiter 
 int number_lines(char* filename){
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
