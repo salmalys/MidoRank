@@ -82,28 +82,20 @@ float compare(Page Vec_Ex[], Page Vec_Res[], int n){
     return max;
 }
 
-void experience(char* filename, int k){
-  FILE* f = fopen(filename,"r");
-  if(f == NULL) {
-    printf("File not found");
-    return;
-  }
+void experience(FILE *f, int k){
 
   int n = size_matrix(f);
-  fclose(f);
+  rewind(f);                                           //permet de reboucler au debut du fichier
 
   List Adj[n+1];
 
-  FILE* f1 = fopen(filename,"r");
-  if(f1 == NULL) return;
-  graph_init_mat(f1,Adj,n);
+  graph_init_mat(f,Adj,n);
   //print_graph(Adj,n);
 
   List Adj_pred[n+1];
   pred(Adj, Adj_pred,n);
   Page* Vec_Res = recup_vec(f,n);
-  fclose(f);
-
+  
   Page* Vec_Ex = start(Adj, n);
   long double E;
   E = (long double)1/(10*n);
@@ -118,6 +110,6 @@ void experience(char* filename, int k){
   //affiche_res(Vec_Res,n);
 
   float ecart = compare(Vec_Ex, Vec_Res, n);
-  printf("ecart max = %lf %%\n", ecart);
+  printf("ecart max = %.20lf %%\n", ecart);
   return;
 }
