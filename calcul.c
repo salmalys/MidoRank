@@ -43,19 +43,19 @@ void pred(List Adj[], List Adj_pred[], int n){                                  
         List list_principal = Adj[i];
         Node* node = list_principal.first;
         while(node){
-            List* l = find(node->name, Adj_pred, n);                    //?????
+            List* l = find(node->name, Adj_pred, n);                             //?????
             add_list(l,list_principal.name);
             node = node->next;
         }
     }
 }
 
-long double proba_u_s(List* u, char* s, int n, long double E){              //proba de u_s 
-  if(strcmp(u->name,"SuperNode")==0)                                        //cas si le nom de la Liste est le supernoeud
+long double proba_u_s(List* u, char* s, int n, long double E){                   //proba de u_s 
+  if(strcmp(u->name,"SuperNode")==0)                                             //cas si le nom de la Liste est le supernoeud
     return (long double)1/n;
-  else if(strcmp(s,"SuperNode")== 0)                                       //si le nom de la page dont on calcule la probabilité est le supernoeud
-    return E;
-  else{                                                                     //si c'est une liste comme les autres
+  else if(strcmp(s,"SuperNode")== 0)                                             //si le nom de la page dont on calcule la probabilité est le supernoeud
+    return E;   
+  else{                                                                          //si c'est une liste comme les autres
         return (long double)(1-E)/u->cpt_sort;
     }
 }
@@ -69,7 +69,7 @@ long double proba_u(char* name, Page Vec[], int n){
     return 0;
 }
 
-void copie(Page Vec_pred[],Page Vec[], int n){                      //permet d'enregistrer le vecteur calculer à chaque k 
+void copie(Page Vec_pred[],Page Vec[], int n){                                  //permet d'enregistrer le vecteur calculer à chaque k 
     for (int i=0; i<n+1; i++){
         Vec_pred[i].name=Vec[i].name;
         Vec_pred[i].pageRank=Vec[i].pageRank;
@@ -79,10 +79,10 @@ void copie(Page Vec_pred[],Page Vec[], int n){                      //permet d'e
 void update(Page Vec[], List Adj[], List Adj_pred[], int n, long double E){
     Page Vec_pred[n+1];
     copie(Vec_pred,Vec, n);                                            
-                                                                     //Pour chaque page on recalcule son pageRank
+                                                                                //Pour chaque page on recalcule son pageRank
     for(int i = 0; i<n+1; i++){
-        Vec[i].pageRank = 0;                                          //initialisation à 0 du pagerank
-        List* l = find(Vec[i].name, Adj_pred, n);               //????
+        Vec[i].pageRank = 0;                                                    //initialisation à 0 du pagerank
+        List* l = find(Vec[i].name, Adj_pred, n);                               //????
         //if(l == NULL) printf("prblm");
         Node* u = NULL;
         if (l != NULL) {
