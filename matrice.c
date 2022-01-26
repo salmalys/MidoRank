@@ -17,41 +17,55 @@ int size_matrix(FILE* f){
     return n;
 }
 
-void graph_init_mat(FILE* f, List Adj[], int n){
-    Adj[0] = *(list_init("SuperNode"));
-    //Adj[0].name = "S";
-    //Adj[0].first = NULL;
-    Adj[0].cpt_sort = n;
 
 
-    for(int i = 1; i<n+1; i++){
-      char* value = malloc(sizeof(char*));
-      sprintf(value,"%d",i);
-      Adj[i] = *(list_init(value));
-      //Adj[i].name = value;
-      //Adj[i].first = NULL;
-      int cpt = 1;
 
-      char line[256];
-      fgets(line, sizeof(line), f);
-          int k = 0;
-          while(line[k]!='\n'){
-            for(int j = 1; j<n+1; j++){
-              if (line[k] == '1'){
-                char* value = malloc(sizeof(char*));
-                sprintf(value,"%d",j);
-                add_list(&Adj[i],value);
-                cpt++;
-              }
-                k+=2;
-              }
-          }
-      Adj[i].cpt_sort = cpt;
-      add_list(&Adj[i],value);
-      add_list(&Adj[i],"SuperNode");
-      add_list(&Adj[0],value);
+void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
+    //printf("%d",n);
+    Adj[0] = *(list_init("SuperNode"));                    
+    Adj[0].cpt_sort = n; 
+    Adj_pred[0] = *(list_init("SuperNode"));
+    for (int w=1; w<=n+1; w++){
+        char* value2 = malloc(sizeof(char*));
+        sprintf(value2,"%d",w);
+        printf("value ==== %s \n",value2);
+        Adj_pred[w]=*(list_init(value2));                      //obliger de tout initaliser avant pour les pred
     }
+   // free(value2);
+    for (int i=1; i<=n; i++){    
+        char* value = malloc(sizeof(char*));
+        sprintf(value,"%d",i);
+       printf("value ==== %s \n",value);
+       Adj[i]=*(list_init(value));
+        int cpt=0;
+     for(int j=0; j<=n; j++){
+         int v=0;
+      //printf("j ===== %d\n", j);
+           fscanf(f, "%d", &v);
+           if(v==1){   
+               cpt++;
+            char* value1 = malloc(sizeof(char*));
+            sprintf(value1,"%d",j);
+            add_list(&Adj[i], value1);
+           add_list(&Adj_pred[j], value);
+            //free(value1);
+    
+        }
+        
+     }
+    // printf("à la ligne %d il y a %d de 1\n",i,cpt);
+     cpt++;
+     Adj[i].cpt_sort = cpt;
+     //printf("la nvl value est === %s\n ajoute à la liste ===  %s", value, Adj[i].name);
+      add_list(&Adj[i],value);                       
+      add_list(&Adj[i],"SuperNode");                 
+      add_list(&Adj[0],value);   
+    }
+    
+     printf("\n");
 }
+
+
 
 
 Page* recup_vec(FILE* f, int n){
