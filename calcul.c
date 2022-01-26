@@ -31,7 +31,7 @@ List* find(char* string, List Adj[], int n){
 }
 
 void init_Adj_pred(List Adj[], List Adj_pred[], int n){
-    for(int i = 0; i<n+1; i++){
+    for(int i = 0; i<=n+1; i++){
         Adj_pred[i] = *list_init(Adj[i].name);
     }
 }
@@ -39,7 +39,7 @@ void init_Adj_pred(List Adj[], List Adj_pred[], int n){
 
 void pred(List Adj[], List Adj_pred[], int n){
     init_Adj_pred(Adj, Adj_pred, n);
-    for(int i = 0; i<n+1; i++){
+    for(int i = 0; i<=n+1; i++){
         List list_principal = Adj[i];
         Node* node = list_principal.first;
         while(node){
