@@ -12,7 +12,6 @@ struct list{
 typedef struct list List;
 
 
-void test(void);
 List* list_init(char*);
 Node* node_init(char*);
 void add_list(List*, char*);

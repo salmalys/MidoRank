@@ -8,13 +8,11 @@
 #define SIZE_BUFFER 256
 
 //prend le fihchier en arguments et renvoie son nombre de lignes
-iint number_lines(FILE* f){
+int number_lines(FILE* f){
   int n = 0;
   char line[SIZE_BUFFER];
-  while (fgets(line, sizeof(line), f)){
-      if(strcmp(line,"\n")==0)return n;
+  while (fgets(line, sizeof(line), f))
         n++;
-  }
   return n;
 }
 
@@ -130,7 +128,7 @@ void affiche_podium(int x, Page* Vec, int n){
       if (Vec[i].pageRank > max)
         max = i;
     }
-    printf("%d : %s\nPageRank = %.10lf\n\n", j+1, Vec[max].name, Vec[max].pageRank);
+    printf("%d : %s\nPageRank = %.10f\n\n", j+1, Vec[max].name, Vec[max].pageRank);
     Vec[max].pageRank = -1;
   }
 }

@@ -4,16 +4,12 @@
 #include "list.h"
 
 
-void test(void){
-  printf("bonjour\n");
-}
-
 List* list_init(char* name){
-    //printf("in function list_init\n");
     List *l = malloc(sizeof(List));
     if (l == NULL) return NULL;
     l->name = name;
     l->first = NULL;
+    l->cpt_sort = 1;
     return l;
 }
 
