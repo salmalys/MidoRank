@@ -32,13 +32,13 @@ void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
         Adj_pred[w]=*(list_init(value2));                      //obliger de tout initaliser avant pour les pred
     }
    // free(value2);
-    for (int i=1; i<=n; i++){    
+    for (int i=1; i<=n+1; i++){    
         char* value = malloc(sizeof(char*));
         sprintf(value,"%d",i);
        printf("value ==== %s \n",value);
        Adj[i]=*(list_init(value));
         int cpt=0;
-     for(int j=0; j<=n; j++){
+     for(int j=0; j<n; j++){
          int v=0;
       //printf("j ===== %d\n", j);
            fscanf(f, "%d", &v);
