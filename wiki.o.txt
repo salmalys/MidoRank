@@ -1,0 +1,9 @@
+int number_lines(FILE* f);
+void read_link(List Adj[], FILE* f);
+int test_in_list(List* l, char* name);
+int test_red_link(char* name, List Adj[], int n);
+int test(char* name, List *l, List Adj[], int n);
+void feed_list(char* line, List* list, List Adj[], int n);
+void wiki(FILE* f, List Adj[], int n);
+void affiche_podium(int x, Page* Vec, int n);
+void algorithm(FILE* file, int x, List Adj[], int n);
