@@ -21,7 +21,6 @@ int size_matrix(FILE* f){
 
 
 void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
-    //printf("%d",n);
     Adj[0] = *(list_init("SuperNode"));                    
     Adj[0].cpt_sort = n; 
     Adj_pred[0] = *(list_init("SuperNode"));
@@ -31,7 +30,6 @@ void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
         printf("value ==== %s \n",value2);
         Adj_pred[w]=*(list_init(value2));                      //obliger de tout initaliser avant pour les pred
     }
-   // free(value2);
     for (int i=1; i<=n; i++){    
         char* value = malloc(sizeof(char*));
         sprintf(value,"%d",i);
@@ -40,7 +38,6 @@ void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
         int cpt=0;
      for(int j=0; j<n; j++){
          int v=0;
-      //printf("j ===== %d\n", j);
            fscanf(f, "%d", &v);
            if(v==1){   
                cpt++;
@@ -48,21 +45,16 @@ void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
             sprintf(value1,"%d",j+1);
             add_list(&Adj[i], value1);
            add_list(&Adj_pred[j+1], value);
-            //free(value1);
-    
-        }
-        
+        } 
      }
-    // printf("à la ligne %d il y a %d de 1\n",i,cpt);
      cpt++;
      Adj[i].cpt_sort = cpt;
-     //printf("la nvl value est === %s\n ajoute à la liste ===  %s", value, Adj[i].name);
       add_list(&Adj[i],value);                       
       add_list(&Adj[i],"SuperNode");                 
       add_list(&Adj[0],value);   
     }
     
-     printf("\n");
+      Adj[0].name="SuperNode";   
 }
 
 
