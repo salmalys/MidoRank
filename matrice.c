@@ -19,19 +19,27 @@ int size_matrix(FILE* f){
 
 
 
-void graph_init_mat(FILE *f, List Adj[], int n){
+
+void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
     //printf("%d",n);
-     Adj[0] = *(list_init("SuperNode"));                    
+    Adj[0] = *(list_init("SuperNode"));                    
     Adj[0].cpt_sort = n; 
+    Adj_pred[0] = *(list_init("SuperNode"));
+    for (int w=1; w<=n+1; w++){
+        char* value2 = malloc(sizeof(char*));
+        sprintf(value2,"%d",w);
+        printf("value ==== %s \n",value2);
+        Adj_pred[w]=*(list_init(value2));                      //obliger de tout initaliser avant pour les pred
+    }
+   // free(value2);
     for (int i=1; i<=n; i++){    
         char* value = malloc(sizeof(char*));
         sprintf(value,"%d",i);
        printf("value ==== %s \n",value);
        Adj[i]=*(list_init(value));
         int cpt=0;
-     for(int j=0; j<n; j++){
+     for(int j=0; j<=n; j++){
          int v=0;
-         int w=0;
       //printf("j ===== %d\n", j);
            fscanf(f, "%d", &v);
            if(v==1){   
@@ -39,6 +47,7 @@ void graph_init_mat(FILE *f, List Adj[], int n){
             char* value1 = malloc(sizeof(char*));
             sprintf(value1,"%d",j);
             add_list(&Adj[i], value1);
+           add_list(&Adj_pred[j], value);
             //free(value1);
     
         }
@@ -55,6 +64,7 @@ void graph_init_mat(FILE *f, List Adj[], int n){
     
      printf("\n");
 }
+
 
 
 
