@@ -128,7 +128,7 @@ void affiche_podium(int x, Page* Vec, int n){
       if (Vec[i].pageRank > max)
         max = i;
     }
-    printf("%d : %s\nPageRank = %.10f\n\n", j+1, Vec[max].name, Vec[max].pageRank);
+    printf("%d : %s\nPageRank = %.10lf\n\n", j+1, Vec[max].name, Vec[max].pageRank);
     Vec[max].pageRank = -1;
   }
 }
