@@ -45,9 +45,9 @@ void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
            if(v==1){   
                cpt++;
             char* value1 = malloc(sizeof(char*));
-            sprintf(value1,"%d",j);
+            sprintf(value1,"%d",j+1);
             add_list(&Adj[i], value1);
-           add_list(&Adj_pred[j], value);
+           add_list(&Adj_pred[j+1], value);
             //free(value1);
     
         }
