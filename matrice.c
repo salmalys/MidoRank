@@ -29,7 +29,7 @@ void graph_init_mat(FILE *f, List Adj[], int n){
        printf("value ==== %s \n",value);
        Adj[i]=*(list_init(value));
         int cpt=0;
-     for(int j=0; j<n-210; j++){
+     for(int j=0; j<n; j++){
          int v=0;
          int w=0;
       //printf("j ===== %d\n", j);
