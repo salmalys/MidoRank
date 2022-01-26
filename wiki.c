@@ -8,11 +8,13 @@
 #define SIZE_BUFFER 256
 
 //prend le fihchier en arguments et renvoie son nombre de lignes
-int number_lines(FILE* f){
+iint number_lines(FILE* f){
   int n = 0;
   char line[SIZE_BUFFER];
-  while (fgets(line, sizeof(line), f))
+  while (fgets(line, sizeof(line), f)){
+      if(strcmp(line,"\n")==0)return n;
         n++;
+  }
   return n;
 }
 
