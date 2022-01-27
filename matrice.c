@@ -18,55 +18,42 @@ int size_matrix(FILE* f){
 }
 
 
-
 void graph_init_mat(FILE *f, List Adj[], int n, List Adj_pred[]){
-    //printf("%d",n);
-    Adj[0] = *(list_init("SuperNode"));                    
-    Adj[0].cpt_sort = n; 
+    Adj[0] = *(list_init("SuperNode"));
+    Adj[0].cpt_sort = n;
     Adj_pred[0] = *(list_init("SuperNode"));
     for (int w=1; w<=n+1; w++){
         char* value2 = malloc(sizeof(char*));
         sprintf(value2,"%d",w);
-        Adj_pred[w]=*(list_init(value2)); //obliger de tout initaliser avant pour les pred
+        Adj_pred[w]=*(list_init(value2)); 
         add_list(&Adj_pred[w],value2);
         add_list(&Adj_pred[w],"SuperNode");
-        
     }
-   
-    for (int i=1; i<=n; i++){    
+    for (int i=1; i<=n; i++){
         char* value = malloc(sizeof(char*));
         sprintf(value,"%d",i);
        Adj[i]=*(list_init(value));
         int cpt=0;
      for(int j=0; j<n; j++){
          int v=0;
-    
          fscanf(f, "%d", &v);
-         if(v==1){   
+         if(v==1){
             cpt++;
             char* value1 = malloc(sizeof(char*));
             sprintf(value1,"%d",j+1);
             add_list(&Adj[i], value1);
             add_list(&Adj_pred[j+1], value);
-            //free(value1);
-    
         }
-         //add_list(&Adj_pred[j+1], value);
      }
-    // printf("à la ligne %d il y a %d de 1\n",i,cpt);
       cpt++;
       Adj[i].cpt_sort = cpt;
-      add_list(&Adj[i],value);                       
-      add_list(&Adj[i],"SuperNode");                 
-      add_list(&Adj[0],value);  
+      add_list(&Adj[i],value);
+      add_list(&Adj[i],"SuperNode");
+      add_list(&Adj[0],value);
       add_list(&Adj_pred[0],value);
-    
     }
-     Adj[0].name="SuperNode";    
+     Adj[0].name="SuperNode";
 }
-
-
-
 
 
 
@@ -106,17 +93,10 @@ void experience(char* filename, int k){
   }
 
   int n = size_matrix(f);
-  fclose(f);
-
+  
   List Adj[n+1];
-
-  FILE* f1 = fopen(filename,"r");
-  if(f1 == NULL) return;
-  graph_init_mat(f1,Adj,n);
-  //print_graph(Adj,n);
-
   List Adj_pred[n+1];
-  pred(Adj, Adj_pred,n);
+  //pred(Adj, Adj_pred,n) :::: a faire pour les listes pas les matrices
   Page* Vec_Res = recup_vec(f,n);
   fclose(f);
 
@@ -129,7 +109,7 @@ void experience(char* filename, int k){
 
   //printf("Vecteur experimental:\n");
   //affiche_res(Vec_Ex,n);
-  
+  somme(Vec_Ex,n);
   //printf("Vecteur resultat:\n");
   //affiche_res(Vec_Res,n);
 
