@@ -31,7 +31,7 @@ List* find(char* string, List Adj[], int n){
 }
 
 void init_Adj_pred(List Adj[], List Adj_pred[], int n){
-    for(int i = 0; i<=n+1; i++){
+    for(int i = 0; i<n+1; i++){
         Adj_pred[i] = *list_init(Adj[i].name);
     }
 }
@@ -39,7 +39,7 @@ void init_Adj_pred(List Adj[], List Adj_pred[], int n){
 
 void pred(List Adj[], List Adj_pred[], int n){
     init_Adj_pred(Adj, Adj_pred, n);
-    for(int i = 0; i<=n+1; i++){
+    for(int i = 0; i<n+1; i++){
         List list_principal = Adj[i];
         Node* node = list_principal.first;
         while(node){
@@ -81,6 +81,7 @@ void update(Page Vec[], List Adj[], List Adj_pred[], int n, long double E){
     copie(Vec_pred,Vec, n);
     //Pour chaque page on recalcule son pageRank
     for(int i = 0; i<n+1; i++){
+      //printf("\ni == %d\n", i);
         //initialisation à 0 du pagerank
         Vec[i].pageRank = 0;
         List* l = find(Vec[i].name, Adj_pred, n);
@@ -93,10 +94,30 @@ void update(Page Vec[], List Adj[], List Adj_pred[], int n, long double E){
           printf("erreur");
         }
         while (u){
+            //printf("pred == %s\n", u->name);
             List* list_u = find(u->name, Adj,n);
+            //print_list(list_u);
             long double p = proba_u(u->name,Vec_pred,n);
+            //long double p2 = proba_u_s(list_u,Vec[i].name, n, E);
+            //print_list(list_u);
+            //printf("name == %s\n", Vec[i].name);
+            //printf("nbresortants == %d\n", list_u->cpt_sort);
+            //printf("p1 == %Lf\np2 == %Lf\n\n\n", p1, p2);
             Vec[i].pageRank += proba_u_s(list_u,Vec[i].name, n,E)*p;
             u = u->next;
         }
+
     }
+}
+
+
+
+int somme(Page Vec_Ex[], int n){
+    long double sum=0;
+    for (int i=0; i<=n; i++){
+        sum+=Vec_Ex[i].pageRank;
+    }
+    printf("somme == %.20Lf\n",sum);
+    return sum;
+
 }

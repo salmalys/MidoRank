@@ -4,56 +4,41 @@
 #include "list.h"
 #include "calcul.h"
 #include "matrice.h"
-#include"wiki.h"
+#include "wiki.h"
 
-
-void affiche_podium(int x, Page* Vec, int n){
-  for(int j = 0; j<x; j++){
-    int max = 0;
-    for(int i = 1; i<n+1; i++){
-      if (Vec[i].pageRank > max)
-        max = i;
-    }
-    printf("%d : %s PageRank = %lf", j, Vec[max].name, Vec[max].pageRank);
-    Vec[max].pageRank = -1;
-  }
-}
-
-void algorithm(FILE* file, int x, List Adj[], int n){
-  read_link(Adj, file);
-  wiki(file,Adj,n);
-  fclose(file);
-  print_graph(Adj, n);
-
-  List Adj_pred[n+1];
-  pred(Adj, Adj_pred,n);
-
-  Page* Vec = start(Adj, n);
-  long double E;
-  E = (long double)1/(10*n);
-
-  int k = 1;
-  while (k--)
-    update(Vec, Adj, Adj_pred, n, E);
-
-  affiche_podium(x, Vec, n);
-}
 
 int main(int argc, char *argv[]){
+  if (strcmp(argv[1],"-t") == 0){
+    char* value = argv[2];
+    int k = atoi(value);
 
-  FILE* file = fopen(argv[1], "r");
-  if (file == NULL) {
-      printf("File not found\n");
-      return 0;
+    char* tab_files[6]= {"alea4-6.txt", "alea4-12.txt","alea10-40.txt","alea50-1000.txt","alea100-5000.txt","alea1000-10000.txt"};
+
+    for (int i = 0; i<5; i++){
+      printf("Matrice du fichier %s\n", tab_files[i]);
+      experience(tab_files[i], k);
+    }
   }
 
-  char* value = argv[2];
-  int x = atoi(value);
+  else if (strcmp(argv[1],"-n") == 0){
+    FILE* file = fopen(argv[2], "r");
+    if (file == NULL) {
+        printf("File not found\n");
+        return 0;
+    }
 
-  int n = number_lines(file);
-  List Adj[n+1];
+    char* value = argv[3];
+    int x = atoi(value);
 
-  //algorithm(file,x, Adj, n);
+    int n = number_lines(file);
+    List Adj[n+1];
+
+    algorithm(file,x, Adj, n);
+  }
+
+  else {
+    printf("Veuillez consulter la notice READ ME\n");
+  }
 
   return 0;
 }

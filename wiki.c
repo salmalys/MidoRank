@@ -5,7 +5,7 @@
 #include "calcul.h"
 #include "matrice.h"
 #include"wiki.h"
-#define SIZE_BUFFER 256
+#define SIZE_BUFFER 100000
 
 //prend le fihchier en arguments et renvoie son nombre de lignes
 int number_lines(FILE* f){
@@ -28,18 +28,28 @@ void read_link(List Adj[], FILE* f){
   Adj[0] = *(list_init("SuperNode"));              //init de la liste du Super Noeud
   int j = 0;
   char line[SIZE_BUFFER];
-  while (fgets(line, SIZE_BUFFER, f)){             //boucle sur les lignes
+  int i = 1;
+  while (fgets(line, SIZE_BUFFER, f)){
+    //printf("i == %i\n", i);
+    i++;
     int k = 0;
-    char*  name = malloc(sizeof(char*));
+    char*  name = malloc(256);
+    //char name[SIZE_BUFFER];
+    //char name[256];
     int i = 0;
     while((line[k]!= '|')&&(line[k]!= '\n'))
       name[i++] = line[k++];
-    j++;                                           //Dans la variable name on récupère la première chaîne de la ligne
+    j++;
+    //printf("%s", name);
+                                      //Dans la variable name on récupère la première chaîne de la ligne
     Adj[j] = *(list_init(name));
-    add_list(&Adj[j],name);                        //Ajout à la liste de la ligne du lien sur elle-même
-    add_list(&Adj[j],"SuperNode");                 //Ajout du Super Noeud
-    add_list(&Adj[0],name);                        //Ajout à la liste du Super Noeud, le lien de la page associée à la ligne
+    add_list(&Adj[j],name);
+    add_list(&Adj[0],name);
+    //free(name);
+    //printf("compteur == %d\n", Adj[j].cpt_sort);  */                  //Ajout à la liste du Super Noeud, le lien de la page associée à la ligne
   }
+  //printf("fin de 1");
+
 }
 
 
@@ -92,19 +102,33 @@ void feed_list(char* line, List* list, List Adj[], int n){
   while ((*line != '\n')&&(*line != '|'))
     line++;                                        //lecture de la ligne jusuq'au nom
 
-  if (*line == '\n') return;                      //Si la page ne contient pas de lien, il n'ya rien à ajouter
+  if (*line == '\n') {
+    add_list(list,"SuperNode");
+    return;
+  }
+  //printf("car == %c\n", *line);           //Si la page ne contient pas de lien, il n'ya rien à ajouter
   while(*line != '\n'){
     line++;
-    char* name = malloc(sizeof(char*));
+    char* name = malloc(256);
+    //char name[SIZE_BUFFER];
     int i = 0;
-    while ((*line != '|')&&(*line != '\n'))
-      name[i++] = *(line++);                      //le nom de la page est récupéré dans la variable name
-
+    while ((*line != '|')&&(*line != '\n')){
+      name[i++] = *(line++);
+      //printf("car == %c\n", *line);
+    }
+    //printf("name == %s\n", name);
+      //name[i++] = *(line++);
+                                    //le nom de la page est récupéré dans la variable name
     if (test(name, list, Adj, n)){                //test si le nom est à ajouter dans la liste
       add_list(list,name);                        //ajoute à la liste le lien sortant si test positif
-      Adj[i].cpt_sort++;                          //incrémentation du nombre de sortants
+      list->cpt_sort++;                      //incrémentation du nombre de sortants
     }
+    //free(name);
   }
+
+  add_list(list,"SuperNode");
+  //printf("Liste %s \ncompteur == %d\n\n",list->name, list->cpt_sort);
+  //print_list(list);
 }
 
 
@@ -115,9 +139,11 @@ void wiki(FILE* f, List Adj[], int n){
   rewind(f);                                     //déplace le curseur en début du fichier
   for(int i = 1; i<n+1; i++){                   //parcourt du graphe
     char line[SIZE_BUFFER];
-    fgets(line,sizeof(line),f);                 //récupération de la ligne
+    fgets(line,sizeof(line),f);
+                                        //récupération de la ligne
     List* list = &Adj[i];
-    feed_list(line, list, Adj, n);             //Ajout à la liste des sortants présents dans la ligne
+    printf("ligne %d\n", i);
+    feed_list(line, list, Adj, n);         //Ajout à la liste des sortants présents dans la ligne
   }
 }
 
@@ -125,10 +151,10 @@ void affiche_podium(int x, Page* Vec, int n){
   for(int j = 0; j<x; j++){
     int max = 0;
     for(int i = 1; i<n+1; i++){
-      if (Vec[i].pageRank > max)
+      if (Vec[i].pageRank > Vec[max].pageRank)
         max = i;
     }
-    printf("%d : %s\nPageRank = %.10f\n\n", j+1, Vec[max].name, Vec[max].pageRank);
+    printf("%d : %s\nPageRank = %.20Lf\n\n", j+1, Vec[max].name, Vec[max].pageRank);
     Vec[max].pageRank = -1;
   }
 }
@@ -141,6 +167,7 @@ void algorithm(FILE* file, int x, List Adj[], int n){
 
   List Adj_pred[n+1];
   pred(Adj, Adj_pred,n);
+  //print_graph(Adj_pred, n);
 
   Page* Vec = start(Adj, n);
   long double E;
@@ -151,4 +178,5 @@ void algorithm(FILE* file, int x, List Adj[], int n){
     update(Vec, Adj, Adj_pred, n, E);
 
   affiche_podium(x, Vec, n);
+  //affiche_res(Vec,n);
 }
