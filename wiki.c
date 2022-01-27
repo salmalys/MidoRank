@@ -5,12 +5,13 @@
 #include "calcul.h"
 #include "matrice.h"
 #include"wiki.h"
-#define SIZE_BUFFER 100000
+#define SIZE_BUFFER_line 100000
+#define SIZE_BUFFER_char 1000
 
 //prend le fihchier en arguments et renvoie son nombre de lignes
 int number_lines(FILE* f){
   int n = 0;
-  char line[SIZE_BUFFER];
+  char line[SIZE_BUFFER_line];
   while (fgets(line, sizeof(line), f))
         n++;
   return n;
@@ -27,14 +28,14 @@ void read_link(List Adj[], FILE* f){
   rewind(f);                                       //déplace le curseur en début du fichier
   Adj[0] = *(list_init("SuperNode"));              //init de la liste du Super Noeud
   int j = 0;
-  char line[SIZE_BUFFER];
+  char line[SIZE_BUFFER_line];
   int i = 1;
-  while (fgets(line, SIZE_BUFFER, f)){
+  while (fgets(line, SIZE_BUFFER_line, f)){
     //printf("i == %i\n", i);
     i++;
     int k = 0;
-    char*  name = malloc(256);
-    //char name[SIZE_BUFFER];
+    //char*  name = malloc(256);
+    char name[SIZE_BUFFER_char];
     //char name[256];
     int i = 0;
     while((line[k]!= '|')&&(line[k]!= '\n'))
@@ -109,8 +110,8 @@ void feed_list(char* line, List* list, List Adj[], int n){
   //printf("car == %c\n", *line);           //Si la page ne contient pas de lien, il n'ya rien à ajouter
   while(*line != '\n'){
     line++;
-    char* name = malloc(256);
-    //char name[SIZE_BUFFER];
+   // char* name = malloc(256);
+    char name[SIZE_BUFFER_char];
     int i = 0;
     while ((*line != '|')&&(*line != '\n')){
       name[i++] = *(line++);
