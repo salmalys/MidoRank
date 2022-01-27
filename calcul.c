@@ -17,7 +17,7 @@ Page* start(List Adj[], int n){
 
 void affiche_res(Page Vec[], int n){
     for (int i = 0; i<n+1; i++)
-        printf("%s: Page Rank = %Lf\n", Vec[i].name, Vec[i].pageRank);
+        printf("%s: Page Rank = %.20Lf\n", Vec[i].name, Vec[i].pageRank);
     printf("\n");
 }
 
