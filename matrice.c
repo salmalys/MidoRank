@@ -21,40 +21,40 @@ int size_matrix(FILE* f){
 }
 
 
-void graph_init_mat(FILE *f, List Adj[],List Adj_pred[], int n){
+void graph_init_mat(FILE *f, List Adj[],List Adj_pred[], int n){                                //Remplit le graphe de Adj, sans la page du SuperNoeud, et le graphe de Adj_pred
 
-    Adj_pred[0] = *(list_init("SuperNode"));
-    for (int w=1; w<=n+1; w++){
-        char* value2 = malloc(sizeof(char*));
-        sprintf(value2,"%d",w);
-        Adj_pred[w]=*(list_init(value2)); //obliger de tout initaliser avant pour les pred
-        add_list(&Adj_pred[w],value2);
-        add_list(&Adj_pred[w],"SuperNode");
+    Adj_pred[0] = *(list_init("SuperNode"));                                                    //Initialise la liste de Adj_pred du SuperNoeud
+    for (int w=1; w<=n+1; w++){                                                                                          
+        char* value2 = malloc(sizeof(char*));                                                                                                 
+        sprintf(value2,"%d",w);                                                                 //Permet de mettre l'entier w dans value2 en le transformant en chaine de characteère
+        Adj_pred[w]=*(list_init(value2));                                                       //Initialise les noms de chaque liste de Adj_pred de la page 1 à celle n+1 
+        add_list(&Adj_pred[w],value2);                                                          //Ajoute lui même à la liste de Adj_pred correspondantes, car chaque page est pointée par elle même
+        add_list(&Adj_pred[w],"SuperNode");                                                     //Ajoute la page du SuperNoeud à la liste Adj_pred
     }
-    for (int i=1; i<=n; i++){
-        char* value = malloc(sizeof(char*));
-        sprintf(value,"%d",i);
-       Adj[i]=*(list_init(value));
-        int cpt=0;
-     for(int j=0; j<n; j++){
+    for (int i=1; i<=n; i++){                                                                  //Parcourt les lignes
+        char* value = malloc(sizeof(char*));                    
+        sprintf(value,"%d",i);                                                                 //Met l'entier i dans une chaine de charactère value
+        Adj[i]=*(list_init(value));                                                            //Initialise la liste Adj[i] au nom de value
+        int cpt=0;                                                                             //Compteur pour compter le nombres de voisins sortants de la liste Adj[i]
+     for(int j=0; j<n; j++){                                                                   //Parcourt sur les colonnes
          int v=0;
-         fscanf(f, "%d", &v);
-         if(v==1){
-            cpt++;
+         fscanf(f, "%d", &v);                                                                  //Parcourt le fichier et recupère le premier entier qu'il trouve et le stock dans v
+         if(v==1){                                                                             //Si l'entier récuperer est un 1 :
+            cpt++;                                                                             //Incremente le compteur car il y a un voisin sortant en plus
             char* value1 = malloc(sizeof(char*));
-            sprintf(value1,"%d",j+1);
-            add_list(&Adj[i], value1);
-            add_list(&Adj_pred[j+1], value);
+            sprintf(value1,"%d",j+1);                                                          //Met l'entier j+1 dans le charactère value1, j+1 car on commence à la colonne 0 mais cette colonne on considère que son nom est 1
+            add_list(&Adj[i], value1);                                                         //Ajoute à Adj[i] la valeur de value1
+            add_list(&Adj_pred[j+1], value);                                                   //Ajoute au tableau des predecesseurs de la page du nom value 1, la page de nom value
     }
      }
-      cpt++;
-      Adj[i].cpt_sort = cpt;
-      add_list(&Adj[i],value);
-      add_list(&Adj[i],"SuperNode");
-      add_list(&Adj_pred[0],value);
+      cpt++;                                                                                   //Incremente le compteur une fois car lui même appartient à sa liste
+      Adj[i].cpt_sort = cpt;                                                                   
+      add_list(&Adj[i],value);                                                                //S'ajoute lui 
+      add_list(&Adj[i],"SuperNode");                                                          //Ajoute la page du SuperNoeud 
+      add_list(&Adj_pred[0],value);                                                           //Ajoute chaque nom de liste au Adj_pred du SuperNoeud
     }
-     Adj[0].name="SuperNode";
-     Adj[0].first=NULL;
+     Adj[0].name="SuperNode";                                                                 //Reinitialisation de Adj[0]
+     Adj[0].first=NULL;                                                                       
      Adj[0].cpt_sort = n;
 
 }
