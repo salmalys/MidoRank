@@ -5,17 +5,17 @@
 #include "list.h"
 #include "calcul.h"
 #include "matrice.h"
-#define SIZE_BUFFER_line 100000
-#define SIZE_BUFFER_name 1000
+#define SIZE_BUFFER_line 100000                                                                 //Defini une constante pour la taille des lignes
+#define SIZE_BUFFER_name 1000                                                                   //Defini une constante pour la taille des charactères
 
 int size_matrix(FILE* f){
   int n = 0;
   char line[SIZE_BUFFER_line];
     while(fgets(line, sizeof(line), f)){
-    if (strcmp(line,"\n")==0){
+    if (strcmp(line,"\n")==0){                                                                //Permet de s'arreter à la premiere ligne qui est égal à un retour à la ligne, pour ne pas compter les lignes vace les Vecteurs résultat
             return n;
         }
-    n++;
+    n++;                                                  
     }
     return n;
 }
