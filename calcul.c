@@ -6,9 +6,9 @@
 
 Page* start(List Adj[], int n){                                                                      //Initaliser le Vecteur resultat Vec des probabilités
     Page* Vec = malloc(sizeof(Page)*(n+1));                                                          //n+1 : car il y a n+1 pages, n+1 probabilités
-    Vec[0].name = "SuperNode";                                                                       //Initalisation à 0 du Vecteur resultat du SuperNode
+    Vec[0].name = "SuperNode";                                                                       //Initalisation à 0 du Vecteur Experimentaux du SuperNode
     Vec[0].pageRank = 0;
-    for (int i = 1; i<n+1; i++ ){                                                                    //Initalisation des Vecteurs résultat de toutes les autres pages                                
+    for (int i = 1; i<n+1; i++ ){                                                                    //Initalisation des Vecteurs éxperimentaux de toutes les autres pages                                
         Vec[i].name = Adj[i].name;                                                                   //Initialisation du nom 
         Vec[i].pageRank = (long double)1/n;                                                          //Initalisation du pageRank à  1/n
     }
@@ -63,20 +63,20 @@ long double proba_u_s(List* u, char* s, int n, long double E){                  
 long double proba_u(char* name, Page Vec[], int n){                                                 //Calcul de la probabilité de la liste u
     for(int i = 0; i<n+1; i++){
         if (strcmp(Vec[i].name,name)==0){                                                           //Permet de trouver quel Vecteur a pour nom le nom de u
-            return Vec[i].pageRank;                                                                 //PageRank du Vecteur résultat qui a pour nom u
+            return Vec[i].pageRank;                                                                 //PageRank du Vecteur éxperimental qui a pour nom u
         }
     }
     return 0;                                                                                       //Si il n'existe pas retourne 0
 }
 
-void copie(Page Vec_pred[],Page Vec[], int n){                                                      //Copie le Vecteur trouvé dans un autre
+void copie(Page Vec_pred[],Page Vec[], int n){                                                      //Copie le Vecteur trouvé dans un autre Vecteur
     for (int i=0; i<n+1; i++){
         Vec_pred[i].name=Vec[i].name;
         Vec_pred[i].pageRank=Vec[i].pageRank;
     }
 }
 
-void update(Page Vec[], List Adj[], List Adj_pred[], int n, long double E){                        //Mis à jour du Vecteur résultat
+void update(Page Vec[], List Adj[], List Adj_pred[], int n, long double E){                        //Mis à jour du Vecteur éxperimental
     Page Vec_pred[n+1];                                                                            //Créer une page Vecteur_pred de n+1 case
     copie(Vec_pred,Vec, n);                                                                        //Copie du Vecteur calculé précédemment dans Vec_pred pour ne pas perdre les valeurs calculées precedemment
     for(int i = 0; i<n+1; i++){
@@ -92,7 +92,7 @@ void update(Page Vec[], List Adj[], List Adj_pred[], int n, long double E){     
         while (u){                                                                                 //Tant que le noeud n'est pas nul
             List* list_u = find(u->name, Adj,n);                                                   //On initialise l'adresse de la liste liste_u à l'adresse du Adj du nom du noeud de u
             long double p = proba_u(u->name,Vec_pred,n);                                           
-            Vec[i].pageRank += proba_u_s(list_u,Vec[i].name, n,E)*p;                               //Somme les calculs des probabiilité de chaque noeud
+            Vec[i].pageRank += proba_u_s(list_u,Vec[i].name, n,E)*p;                               //Somme les calculs des probabiilité de chaque noeud en utlisant les resultats dans le Vecteur précédent Vec_pred et modifie le Vecteur Vec
             u = u->next;
         }
     }
