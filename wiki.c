@@ -20,11 +20,8 @@ int number_lines(FILE* f){
 void read_link(List Adj[], FILE* f){                             //Initialise le nom de chaque liste de Adj 
   rewind(f);                                                     //Reboucle au début du fichier
   Adj[0] = *(list_init("SuperNode"));                            //Initialise la liste du SuperNoeud
-  int j = 0;
   char line[SIZE_BUFFER_line];
-  int i = 1;
   while (fgets(line, SIZE_BUFFER_line, f)){                      //Récupère dans line les lignes une par une du fichier
-    i++;
     int k = 0;
     char*  name = malloc(SIZE_BUFFER_name);
     int i = 0;
