@@ -81,10 +81,10 @@ Page* recup_vec(FILE* f, int n){                                                
 void moy_max(Page Vec_Ex[], Page Vec_Res[], int n){                                                         //calcul et affichage de la moyenne et le maximum des ecarts entre le vecteur resultat et le vecteur experimental
     float ecart_max[n+1];                                                                                   //creer tableau des ecarts maximum
     float moy=0;  
-    ecart_max[0]=(fabs((Vec_Ex[0].pageRank - Vec_Res[0].pageRank)/Vec_Res[0].pageRank))*100;                //fabs() : valeur absolue pour double
+    ecart_max[0]=((fabs(Vec_Ex[0].pageRank - Vec_Res[0].pageRank)/Vec_Res[0].pageRank))*100;                //fabs() : valeur absolue pour double
     float max = ecart_max[0];                                                                               
     for (int i = 1; i<n+1; i++){
-        ecart_max[i] = (fabs((Vec_Ex[i].pageRank - Vec_Res[i].pageRank)/Vec_Res[i].pageRank))*100;          //calcule ecart_max[i]
+        ecart_max[i] = ((fabs(Vec_Ex[i].pageRank - Vec_Res[i].pageRank)/Vec_Res[i].pageRank))*100;          //calcule ecart_max[i]
         moy+=ecart_max[i];                                              
         if (max<ecart_max[i])                                                             
             max = ecart_max[i];
