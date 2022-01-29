@@ -6,7 +6,7 @@
 #include "calcul.h"
 #include "matrice.h"
 #define SIZE_BUFFER_line 100000                                                                        //Defini une constante pour la taille des lignes
-#define SIZE_BUFFER_name 1000                                                                          //Defini une constante pour la taille des charactères
+#define SIZE_BUFFER_name 1000                                                                          //Defini une constante pour la taille des caractères
 
 int size_matrix(FILE* f){
   int n = 0;
@@ -128,6 +128,7 @@ void experience(char* filename, int k){
   moy_max(Vec_Ex, Vec_Res, n);
   
   free_graph(Adj,n);
+  free_graph(Adj_pred);
   free_vec(Vec_Ex, n);
   free_vec(Vec_Res, n);
 
