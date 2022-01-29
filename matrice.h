@@ -2,7 +2,7 @@
 -fonctions de lecture du fichier et de recuperation des donnees (graphe et vecteur resultat)
 -fonction de comparaison des vecteurs resultat et experimental
 -fonction principale qui declare et initialise les objets Adj, Adj_pred, Vec_Ex et Vec_Res 
-                        effectue la mises à jour k fois 
+                        effectue la mise à jour k fois 
                         affiche les resultats*/
 
 int size_matrix(FILE* f);
