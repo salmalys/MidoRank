@@ -11,7 +11,7 @@
 int number_lines(FILE* f){
   int n = 0;
   char line[SIZE_BUFFER_line];
-  while (fgets(line, sizeof(line), f))                            //Permet de s'arreter à la derniere nulle non nulle
+  while (fgets(line, sizeof(line), f))                            //Permet de s'arreter à la derniere ligne non nulle
         n++;
   return n;
 }
