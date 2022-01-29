@@ -6,7 +6,7 @@
 
 List* list_init(char* name){
     List *l = malloc(sizeof(List));
-    if (l == NULL) return NULL;                                             //Test si la liste l n'est pas nulle : obligatoire pour pouvoir appliqué les lignes suivantes à la liste l
+    if (l == NULL) return NULL;                                             //test si la liste l n'est pas nulle : obligatoire pour pouvoir applique les lignes suivantes a la liste l
     l->name = name;
     l->first = NULL;
     l->cpt_sort = 1;
@@ -15,21 +15,21 @@ List* list_init(char* name){
 
 Node* node_init(char* p){
     Node* s = malloc(sizeof(Node));
-    if (s == NULL) return s;                                                //Test obligatoire
+    if (s == NULL) return s;                                                //test obligatoire
     s->name = p;
     s->next = NULL;
     return s;
 }
 
 void add_list(List* l, char* p){
-    if (l == NULL) return;                                                  //Test obligatoire
+    if (l == NULL) return;                                                  //test obligatoire
     Node* s = node_init(p);
-    if (s == NULL) return;                                                  //Vérifie si la fonction node_init a bien initialisé le noeud s
+    if (s == NULL) return;                                                  //verifie si la fonction node_init a bien initialise le noeud s
     s->next = l->first;
     l->first = s;
 }
 
-void print_list(List* l){
+void print_list(List* l){                                                  //affichage d'une liste, son nom suivis des noms de tous ces noeuds
     if (l == NULL) return;
     Node* s = l->first;
     printf("%s: ", l->name);
@@ -40,14 +40,14 @@ void print_list(List* l){
     printf("\n");
 }
 
-void print_graph(List Adj[], int n){
+void print_graph(List Adj[], int n){                                          //affichage de chaque liste du graphe. Une liste par ligne
     for (int i = 0; i< n+1; i++){
         print_list(&Adj[i]);
     }
     printf("\n");
 }
 
-void free_list(List* l){
+void free_list(List* l){                                                       //fonctions de liberation de la memoire allouee 
     if (l == NULL)  {
       free(l);
       return;
@@ -56,18 +56,18 @@ void free_list(List* l){
     Node* s;
     while(n!=NULL){
         s=n;
-        n=n->next;                                                              //Permet de parcourir toutes les liste l
-        s->name=NULL;                                                           //Met à nul le nom de chaque noeud
-        free(s->name);                                                          //Libère l'espace pour le nom de chaque noeud
-        free(s);                                                                //Libère le noeud
+        n=n->next;                                                              //parcourir des liste l
+        s->name=NULL;                                                           //met a nul le nom de chaque noeud
+        free(s->name);                                                          //libere l'espace pour le nom de chaque noeud
+        free(s);                                                                //Libere le noeud
     }
-    l=NULL;                                                                     //Met à nul la liste
-    free(l);                                                                    //Libèere la liste
+    l=NULL;                                                                     //met à nul la liste
+    free(l);                                                                    //libere la liste
 }
 
 
-void free_graph(List Adj[], int n){                                             //Libère Adj
+void free_graph(List Adj[], int n){                                             //libere le graphe Adj
     for (int i=0; i<n+1; i++){
-      free_list(&Adj[i]);                                                       //Libère chaque liste comprise dans Adj
+      free_list(&Adj[i]);                                                       //Libere chaque liste du graphe Adj
     }
 }
