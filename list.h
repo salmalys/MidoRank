@@ -1,3 +1,9 @@
+/*Contenu de la bibilotheque list
+Structure d'une liste chainee pour la reprentation du graphe
+fonctions de bases associees aux listes
+fonctions d'affichage d'une liste et du graphe
+fonctions de liberation de la memoire allouee*/
+
 struct node{
     char* name;
     struct node* next;
