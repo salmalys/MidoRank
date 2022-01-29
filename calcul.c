@@ -4,7 +4,7 @@
 #include "list.h"
 #include "calcul.h"
 
-Page* start(List Adj[], int n){                                                                      //initaliser le vecteur resultat, vecteur des pageRank
+Page* start(List Adj[], int n){                                                                      //initalise le vecteur resultat, vecteur des pageRank
     Page* Vec = malloc(sizeof(Page)*(n+1));                                                          //n+1 : car il y a n+1 pages, n+1 pageRank
     Vec[0].name = "SuperNode";                                                                       //initalisation à 0 du pageRank du SuperNoeud
     Vec[0].pageRank = 0;
