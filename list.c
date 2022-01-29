@@ -47,7 +47,7 @@ void print_graph(List Adj[], int n){                                          //
     printf("\n");
 }
 
-void free_list(List* l){                                                       //fonctions de liberation de la memoire allouee 
+void free_list(List* l){                                                       
     if (l == NULL)  {
       free(l);
       return;
