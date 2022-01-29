@@ -92,6 +92,7 @@ void moy_max(Page Vec_Ex[], Page Vec_Res[], int n){                             
   moy=moy/(n+1);                                                                                            //divise la somme des ecart_max par le nombre de valeurs sommees, c'est a dire n+1
   printf("L'écart moyen entre le vecteur éxperimentale et le vecteur résultat est de %.10f %%\n", moy);
   printf("L'écart maximum entre le vecteur éxperimentale et le vecteur résultat est de %.10f %%\n\n", max);
+  return max;
 }
 
 
