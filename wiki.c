@@ -136,6 +136,9 @@ void algorithm(FILE* file, int x, List Adj[], int n){
   int k = 1;
   while (k--)
     update(Vec, Adj, Adj_pred, n, E);
-  free_graph(Adj,n);
   affiche_podium(x, Vec, n);
+  
+  free_graph(Adj,n);
+  free_graph(Adj_pred, n);
+  free_vec(Vec_res, n);
 }
