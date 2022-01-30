@@ -69,7 +69,7 @@ long double proba_u(char* name, Page Vec[], int n){                             
     return 0;                                                                                       //si il n'existe pas retourne 0
 }
 
-void copie(Page Vec_pred[],Page Vec[], int n){                                                      //copie du vecteur initial dans Vec_pred
+void copy(Page Vec_pred[],Page Vec[], int n){                                                      //copie du vecteur initial dans Vec_pred
     for (int i=0; i<n+1; i++){                                                                      
         Vec_pred[i].name=Vec[i].name;
         Vec_pred[i].pageRank=Vec[i].pageRank;
@@ -78,7 +78,7 @@ void copie(Page Vec_pred[],Page Vec[], int n){                                  
 
 void update(Page Vec[], List Adj[], List Adj_pred[], int n, long double E){                        //mise a jour du vecteur experimental
     Page Vec_pred[n+1];                                                                            //declaration du Vec_pred contenant les pageRank precedents
-    copie(Vec_pred,Vec, n);                                                                        //copie du Vec dans Vec_pred, necessaire pour ne pas fausser les calculs
+    copy(Vec_pred,Vec, n);                                                                         //copie du Vec dans Vec_pred, necessaire pour ne pas fausser les calculs
     for(int i = 0; i<n+1; i++){                                                                    //parcours du vecteur pour recalculer chaque pageRank
         Vec[i].pageRank = 0;                                                                       //pour une page fixee, initialise le pageRank à 0 
         List* l = find(Vec[i].name, Adj_pred, n);                                                  //cherche la liste contenant les predecesseurs de cette page
