@@ -9,39 +9,46 @@
 
 
 int main(int argc, char *argv[]){
-  time_t begin = time(NULL);                                                                                                          //lancement du chronomètre
-  if (strcmp(argv[1],"-t") == 0){                                                                                                     //Si le deuxième argument dans la ligne de commande est t
-    char* value = argv[2];                                                                                                            //On récupère dans un char * le deuxième argument
-    int k = atoi(value);                                                                                                              //La fonction atoi() permet de transforme le char* value en entier dans k
+  time_t begin = time(NULL);                                                                                                          //lancement du chronometre
+  
+ 
+  if (strcmp(argv[1],"-t") == 0){                                                                                                     //mode test: si le deuxième argument dans la ligne de commande est -t
+    char* value = argv[2];                                                                                                            //récupère dans un char* value le deuxième argument
+    int k = atoi(value);                                                                                                              //la fonction atoi() permet de convertir le char* value en entier dans k
 
-    char* tab_files[6]= {"alea4-6.txt", "alea4-12.txt","alea10-40.txt","alea50-1000.txt","alea100-5000.txt","alea1000-10000.txt"};
+    char* tab_files[6]= {"alea4-6.txt", "alea4-12.txt","alea10-40.txt","alea50-1000.txt","alea100-5000.txt","alea1000-10000.txt"};    //tableau contenant l'ensemble des fichiers test
 
     for (int i = 0; i<=5; i++){
       printf("Matrice du fichier %s\n", tab_files[i]);                                                          
-      experience(tab_files[i], k);                                                                                                    //Effectué pour chaque case du tableau tab-files[]
+      algorithm_mat(tab_files[i], k);                                                                                                 //applique l'agorithme de pagerank pour chaque matrice du tableau tab_files
     }
   }
 
-  else if (strcmp(argv[1],"-n") == 0){                                                                                                //Si le deuxième argument dans la ligne de commande est -n
-    FILE* file = fopen(argv[2], "r");                                                                                                 //On ouvre le fichier indiqué en troisième
-    if (file == NULL) {                                                                                                               //Si il n'est pas présent
-        printf("File not found\n");
-        return 0;                                                                                                                     //fin
+  
+  else if (strcmp(argv[1],"-n") == 0){                                                                                                //mode normal: si le deuxième argument dans la ligne de commande est -n
+    FILE* file = fopen(argv[2], "r");                                                                                                 //ouverture du fichier a traiter 
+    if (file == NULL) {                                                                                                               
+        printf("Fichier non trouve\n");                                                                                               //affiche une erreur si le fichier n'est pas trouve
+        return 0;                                                                                                                     //fin 
     }
 
-    char* value = argv[3];                                                                                                            //Sinon on recupère dans un char* le charactère présent dans le 4ème argument de la ligne de commade
-    int x = atoi(value);                                                                                                              //Transforme le charactère dans value en entier et le stocke dans x
+    char* value = argv[3];                                                                                                            //sinon on recupere dans un char* value le caractere present dans le dernier argument de la ligne de commade
+    int x = atoi(value);                                                                                                              //convertit le caractere dans value en entier et le stocke dans x
 
-    int n = number_lines(file);                                                                                                     
-    List Adj[n+1];                                                                                                                    //Créer le graphe Adj qui a n+1 pageq
+    int n = number_lines(file);                                                                                                       //recupere le nombre de pages du fichier                                                                                                    
+    List Adj[n+1];                                                                                                                    //declaration du graphe Adj qui a n+1 liste (celle du SuperNoeud)
 
-    algorithm(file,x, Adj, n);
-
+    algorithm_wiki(file,x, Adj, n);                                                                                                   //applique l'algorithme de pagerank au fichier 
   }
+  
+  
   else {
-    printf("Veuillez consulter la notice READ ME\n");
+    printf("Veuillez consulter la notice READ ME.\n");                                                                                 //si les arguments ne spécifie pas le mode affichage d'une consigne
   }
-time_t end = time(NULL);                                                                                                              //fin du chronomètre
-printf("le temps d'execution : %.10f secondes\n", difftime(end, begin));                                                              //Affiche le temps d'excecution
+  
+ 
+  time_t end = time(NULL);                                                                                                              //fin du chronomètre
+  printf("Le temps d'execution est de %.10f secondes\n", difftime(end, begin));                                                         //affiche le temps d'execution
+  
   return 0;
 }
