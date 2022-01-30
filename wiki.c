@@ -104,16 +104,19 @@ void graph_init_wiki(FILE* f, List Adj[], int n){               //remplit chaque
     printf("ligne %d\n", i);                                    //affichage optionnel mais pratique pour observer l'avancee du programme lors des tests 
     feed_list(line, &Adj[i], Adj, n);                           //la liste du graphe est initialisee a partir de ligne 
   }
+  printf("\n\n\n");
 }
 
-void affiche_podium(int x, Page* Vec, int n){                   //Affiche les x noms et PageRank des pages les plus importantes
+void print_podium(int x, Page* Vec, int n){                   //Affiche les x noms et PageRank des pages les plus importantes
+  printf("Resultat de l'algorithme\n");
+  printf("Voici les %d premieres pages ayant le pageRank les plus importants\n\n");
   for(int j = 0; j<x; j++){                                     //boucle x fois pour recuperer le max
     int max = 0;
     for(int i = 1; i<n+1; i++){
       if (Vec[i].pageRank > Vec[max].pageRank)
         max = i;                                                //max recupere la Page de Vec ayant le pageRank le plus eleve
-    }                                                           //affichage de cette Page
-    printf("%d : %s\nPageRank = %.20Lf\n\n", j+1, Vec[max].name, Vec[max].pageRank);
+    }                                                           //affichage de cette Page, precision du page Rank 20 chiffres apres la virgule
+    printf("Rank %d : %s\nPage Rank = %.20Lf\n\n", j+1, Vec[max].name, Vec[max].pageRank);
     Vec[max].pageRank = -1;
   }
 }
@@ -134,7 +137,7 @@ void algorithm_wiki(FILE* file, int x, List Adj[], int n){
   while (k--)
     update(Vec, Adj, Adj_pred, n, E);                          //mise a jour effectuee k fois 
   
-  affiche_podium(x, Vec, n);                                   //affichage des x premieres pages
+  print_podium(x, Vec, n);                                   //affichage des x premieres pages
   
   free_graph(Adj,n);                                           //liberation e la memoire allouee pour Adj, Adj_pred et Vec
   free_graph(Adj_pred, n);                      
