@@ -56,7 +56,7 @@ void free_list(List* l){
     Node* s;
     while(n!=NULL){
         s=n;
-        n=n->next;                                                              //parcourir des liste l
+        n=n->next;                                                              //parcours de la liste
         s->name=NULL;                                                           //met a nul le nom de chaque noeud
         free(s->name);                                                          //libere l'espace pour le nom de chaque noeud
         free(s);                                                                //Libere le noeud
@@ -68,6 +68,6 @@ void free_list(List* l){
 
 void free_graph(List Adj[], int n){                                             //libere le graphe Adj
     for (int i=0; i<n+1; i++){
-      free_list(&Adj[i]);                                                       //Libere chaque liste du graphe Adj
+      free_list(&Adj[i]);                                                       //libere chaque liste du graphe Adj
     }
 }
