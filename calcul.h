@@ -19,6 +19,6 @@ void init_Adj_pred(List Adj[], List Adj_pred[], int n);
 void pred(List Adj[], List Adj_pred[], int n);
 long double proba_u_s(List* u, char* s, int n, long double E);
 long double proba_u(char* name, Page Vec[], int n);
-void copie(Page Vec_pred[],Page Vec[], int n);
+void copy(Page Vec_pred[],Page Vec[], int n);
 void update(Page Vec[], List Adj[], List Adj_pred[], int n, long double E);
 void free_vec(Page* Vec, int n);
