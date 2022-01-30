@@ -5,7 +5,7 @@
 #include "calcul.h"
 
 Page* start(List Adj[], int n){                                                                      //initalise le vecteur resultat, vecteur des pageRank
-    Page* Vec = malloc(sizeof(Page)*(n+1));                                                          //n+1 : car il y a n+1 pages, n+1 pageRank
+    Page* Vec = malloc(sizeof(Page)*(n+1));                                                          //n+1 : car il y a n+1 pages en comptant celle du SuperNoeud, n+1 pageRank
     Vec[0].name = "SuperNode";                                                                       //initalisation à 0 du pageRank du SuperNoeud
     Vec[0].pageRank = 0;
     for (int i = 1; i<n+1; i++ ){                                                                    //parcours de toutes les pages                                
@@ -15,9 +15,9 @@ Page* start(List Adj[], int n){                                                 
     return Vec;
 }
 
-void affiche_res(Page Vec[], int n){
+void print_vec(Page Vec[], int n){
     for (int i = 0; i<n+1; i++)
-        printf("%s: Page Rank = %.20Lf\n", Vec[i].name, Vec[i].pageRank);                            //.20 : permet d'afficher 20 chiffres après la virgule
+        printf("%s: Page Rank = %.20Lf\n", Vec[i].name, Vec[i].pageRank);                            //.20 : permet d'afficher 20 chiffres apres la virgule
     printf("\n");
 }
 
@@ -30,7 +30,7 @@ List* find(char* string, List Adj[], int n){                                    
     return NULL;                                                                                     
 }
 
-void init_Adj_pred(List Adj[], List Adj_pred[], int n){                                              //Initialise les noms de la liste des predecesseurs utilisees pour les listes wikipedia
+void init_Adj_pred(List Adj[], List Adj_pred[], int n){                                              //initialise les noms de la liste des predecesseurs utilisees pour les listes wikipedia
     for(int i = 0; i<n+1; i++){                                                         
         Adj_pred[i] = *list_init(Adj[i].name);
     }
