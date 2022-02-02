@@ -14,4 +14,4 @@ int test(char* name, List *l, List Adj[], int n);
 void feed_list(char* line, List* list, List Adj[], int n);
 void graph_init_wiki(FILE* f, List Adj[], int n);
 void print_podium(int x, Page* Vec, int n);
-void algorithm_wiki(FILE* file, int x, List Adj[], int n);
+void algorithm_wiki(FILE* file, int x);
