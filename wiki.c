@@ -121,7 +121,9 @@ void print_podium(int x, Page* Vec, int n){                   //Affiche les x no
   }
 }
 
-void algorithm_wiki(FILE* file, int x, List Adj[], int n){
+void algorithm_wiki(FILE* file, int x){
+  int n = number_lined(file);           
+  List Adj[n+1];
   read_link(Adj, file);                                        //lecture du fichier en initialisant seulement les noms de chaque liste + quelques reglage
   graph_init_wiki(file,Adj,n);                                 //remplit le graphe en ajoutant a chaque liste ces liens
   fclose(file);                                                //fermeture du fichier
